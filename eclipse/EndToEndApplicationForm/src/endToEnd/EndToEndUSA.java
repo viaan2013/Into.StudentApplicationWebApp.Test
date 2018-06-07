@@ -70,10 +70,21 @@ public class EndToEndUSA {
 				By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[2]/div[2]/select"));
 		Select progressionuniversity = new Select(university);
 		progressionuniversity.selectByValue("Colorado State University");
+		
+		//Assertion for Progression university
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//option[text()='Colorado State University']")).getText().contains("Colorado State University"));
 		WebElement degree = driver.findElement(
 				By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[3]/div[2]/select"));
 		Select progressiondegree = new Select(degree);
 		progressiondegree.selectByValue("aCE3A000000TNirWAG");
+		
+		//Assertion for progression degree
+		
+		Assert.assertTrue(driver.findElement(By.xpath("//option[@value='aCE3A000000TNirWAG']")).getText().contains("Agricultural Education-B.S."));
+		
+		//for next button
+		
 		driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
 			    
 	    //About you session
@@ -128,16 +139,27 @@ public class EndToEndUSA {
 	    
 	    //Education History
 	    
+	     // What school or institution have you most recently attended?
+	    
 	    driver.findElement(By.id("currentInstitution")).click();
 	    driver.findElement(By.id("currentInstitution")).sendKeys("JNTU");
+	    Assert.assertTrue(driver.findElement(By.xpath("//label[@for='currentInstitution']")).getText().contains("What school or institution have you most recently attended?"));
+	    
+	   // What qualification will/did you receive here?
+	    
 	    driver.findElement(By.id("qualificationName")).click();
 	    driver.findElement(By.id("qualificationName")).sendKeys("Qualification");
+	    Assert.assertTrue(driver.findElement(By.xpath("//label[@for='qualificationName']")).getText().contains("What qualification will/did you receive here?"));
+	    
+	    //In the last four years, which other schools or institutions have you attended?
+	    
 	    driver.findElement(By.id("otherPastStudies")).click();
 	    driver.findElement(By.id("otherPastStudies")).sendKeys("Past studies");
+	    Assert.assertTrue(driver.findElement(By.xpath("//label[@for='otherPastStudies']")).getText().contains("In the last four years, which other schools or institutions have you attended?"));
+	    
+	    // Standardized tests
+	    
 	    driver.findElement(By.xpath("//div/app-form-item[2]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div[2]/div/div/button")).click();
-	    
-	    //Assertion for Standardized tests
-	    
 	    Assert.assertEquals(driver.findElement(By.id("itemquestion_hasTakenEnglishTest")).getText(), "In the last two years, have you taken an English test?");
 	    
 	    driver.findElement(By.xpath("//div/app-form-item[2]/app-multiple-choice-question/div/div[2]/div/label[2]/span")).click();
