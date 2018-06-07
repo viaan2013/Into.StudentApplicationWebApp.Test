@@ -1,0 +1,41 @@
+package com.stepdefinition;
+
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import cucumber.api.java.en.Then;
+
+
+public class ViewCourseDetailsStepDef {
+	
+	public static WebDriver driver;
+	
+	
+	@Then("^I select and click on one of the \"([^\\\"]*)\" view course details link$")
+	public void I_select_and_click_on_one_of_the_view_course_details_link(String course) throws Throwable {
+		
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+	    WebElement element = driver.findElements(By.xpath(course)).get(0);
+	    JavascriptExecutor executor = (JavascriptExecutor)driver;
+	    executor.executeScript("arguments[0].click();", element);
+	}
+
+	
+	@Then("^I should see course details page$")
+	public void I_should_see_details_page() throws Throwable {
+		Assert.assertTrue(driver.getCurrentUrl().contains("http://www.intostudy.com/en-gb/universities/" ));
+		 //  driver.close();   
+	}
+
+
+
+
+
+}

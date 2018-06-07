@@ -1,0 +1,31 @@
+package com.stepdefinition;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import cucumber.api.java.en.Then;
+
+
+public class ViewCourseDetailsStepDef {
+	
+	public static WebDriver driver;
+	
+	
+	@Then("^I select and click on one of the courses view course details link$")
+	public void I_select_and_click_on_one_of_the_courses_view_course_details_link() throws Throwable {
+		
+	   driver.findElement(By.xpath("//a[contains(text(),'View course details')]")).click();
+	}
+
+	
+	@Then("^I should see \"([^\"]*)\" details page$")
+	public void I_should_see_details_page(String course) throws Throwable {
+		Assert.assertTrue(driver.getCurrentUrl().contains("http://www.intostudy.com/en-gb/universities/" +course +"/courses"));
+		 //  driver.close();   
+	}
+
+
+
+
+
+}

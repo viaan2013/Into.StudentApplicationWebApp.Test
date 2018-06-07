@@ -1,0 +1,154 @@
+package applicationUK;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+
+public class ApplicationEndToEnd {
+
+	public static void main(String[] args) throws AWTException, InterruptedException {
+		
+		System.setProperty("webdriver.chrome.driver",
+				"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://ddstudentapplicationwebapp-test-01.azurewebsites.net/application");
+		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.findElement(By.cssSelector("img[class='flag'][src='../assets/flags/flag-gb.svg']")).click();
+		driver.findElement(By.name("searchTerm")).click();
+		driver.findElement(By.name("searchTerm")).sendKeys("science");
+		driver.findElement(By.name("searchTerm")).sendKeys(Keys.ENTER);
+	//	driver.findElement(By.className("btn.btn-primary")).click();
+		driver.findElement(By.id("Undergraduate")).click();
+		driver.findElement(By.cssSelector("label[for='Yes']")).click();
+		driver.findElements(By.className("uni-list-item")).get(0).click();
+		driver.findElement(By.cssSelector(".btn.btn-primary.search-button")).click();
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+		driver.findElements(By.cssSelector(".btn.btn-primary.pull-right")).get(1).click();
+		
+		//Application Form 1st page
+		Select startdate = new Select(driver.findElement(By.id("scheduledCourse.startDate")));
+		startdate.selectByVisibleText("September 2018");
+	
+		Select progressionuniversity = new Select(
+				driver.findElement(By.cssSelector(".form-control.ng-untouched.ng-pristine.ng-valid")));
+		progressionuniversity.selectByValue("City, University of London");
+		Thread.sleep(1000);
+		Select plantostudy = new Select(
+				driver.findElement(By.cssSelector(".form-control.ng-untouched.ng-pristine.ng-valid")));
+		plantostudy.selectByValue("aCE3A000000TNekWAG");
+		Thread.sleep(1000);
+		driver.findElement(By.cssSelector(".btn.btn-primary")).click();
+		
+		//Application Form About You session
+		
+		driver.findElement(By.id("email")).sendKeys("sru123@gmail.com");
+		driver.findElement(By.id("firstName")).sendKeys("sru@testautomation");
+		driver.findElement(By.id("lastName")).sendKeys("@Submitbutton");
+		Select phone=new Select(driver.findElement(By.id("phone")));
+		phone.selectByVisibleText("Antigua and Barbuda +1-268");
+		driver.findElements(By.id("phone")).get(1).sendKeys("4532463hdgfdbsf34654");
+		
+		driver.findElement(By.id("dateOfBirth_day")).sendKeys("21");
+		Select month = new Select(driver.findElement(By.id("dateOfBirth_month")));
+		month.selectByVisibleText("July");
+		driver.findElement(By.id("dateOfBirth_year")).sendKeys("2005");
+		driver.findElement(By.id("gender_f")).click();
+	    Select nationality = new Select(driver.findElement(By.id("nationality")));
+		nationality.selectByVisibleText("India");
+		List<WebElement> nationalitycount=nationality.getOptions();
+	    System.out.println(nationalitycount.size());
+	    String Nationalitylist = driver.findElement(By.id("nationality")).getText();
+	    System.out.println("Nationalitylist" + Nationalitylist );
+	    driver.findElement(By.id("address.addressLine1")).sendKeys("21,Gloucester lane");
+		driver.findElement(By.id("address.addressLine2")).sendKeys("Brighton");
+		driver.findElement(By.id("address.addressLine3")).sendKeys("East sussex");
+		driver.findElement(By.id("address.towncity")).sendKeys("Brighton");
+		driver.findElement(By.id("address.stateregion")).sendKeys("london");
+		driver.findElement(By.id("address.zipcode")).sendKeys("RH1 1HH");
+		Select country = new Select(driver.findElement(By.id("address.country")));
+		country.selectByVisibleText("Andorra");
+		String countrynames = driver.findElement(By.id("address.country")).getText();
+		System.out.println("countrynames list" + countrynames);
+		List<WebElement> countrycount = country.getOptions();
+		System.out.println(countrycount.size());
+		driver.findElements(By.cssSelector(".btn.btn-primary")).get(1).click();
+		
+		//Additional information
+		
+	    /*WebElement studiedinuk=driver.findElement(By.xpath("//button[@aria-labelledby='itemquestion_studiedInUk'][@value='true']"));
+	    JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click()", studiedinuk);
+		Thread.sleep(1000);
+		
+	    driver.findElement(By.id("paymentMethod_familyfunded")).click();
+	    
+	    WebElement educounsellor=driver.findElement(By.xpath("//label//input[@name='hasEducationCounsellor'][@value='true']"));
+	    JavascriptExecutor counsellor = (JavascriptExecutor) driver;
+		counsellor.executeScript("arguments[0].click()", educounsellor);
+		driver.findElement(By.id("educationCounsellor")).sendKeys("Counsellor");
+		WebElement element = driver
+				.findElement(By.xpath("//label//input[@name='hasMedicalConditionOrDisability'][@value='true']"));
+		JavascriptExecutor executor = (JavascriptExecutor) driver;
+		executor.executeScript("arguments[0].click()", element);
+		Thread.sleep(1000);
+		driver.findElement(By.id("medicalConditionOrDisability")).click();
+		driver.findElement(By.id("medicalConditionOrDisability")).sendKeys("stress");
+		
+		WebElement visa = driver
+				.findElement(By.xpath("//label//input[@name='hasBeenRefusedUkVisa'][@value='false']"));
+		JavascriptExecutor executor1 = (JavascriptExecutor) driver;
+		executor1.executeScript("arguments[0].click()", visa);
+		
+		WebElement internationalvisa = driver
+				.findElement(By.xpath("//label//input[@name='hasBeenRefusedInternationalVisa'][@value='false']"));
+		JavascriptExecutor intervisa = (JavascriptExecutor) driver;
+		intervisa.executeScript("arguments[0].click()", internationalvisa);
+		
+		WebElement criminaloffence = driver
+				.findElement(By.xpath("//label//input[@name='hasPastCriminalOffence'][@value='false']"));
+		JavascriptExecutor executor2 = (JavascriptExecutor) driver;
+		executor2.executeScript("arguments[0].click()", criminaloffence);
+		
+		driver.findElements(By.cssSelector(".btn.btn-primary")).get(1).click();
+		*/
+		
+		driver.findElement(By.xpath("//button")).click();
+		driver.findElement(By.id("paymentMethod_familyfunded")).click();
+		driver.findElement(By.xpath("//app-form-item[3]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div/div/div")).click();
+		driver.findElement(By.xpath("//app-form-item[4]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div/div/div/button")).click();
+        driver.findElement(By.xpath("//app-form-item[3]/app-boolean-question/div/div/div/div/button[2]")).click();
+		driver.findElement(By.xpath("//app-form-item[4]/app-boolean-question/div/div/div/div/button[2]")).click();
+		Robot robot1 = new Robot();
+		robot1.keyPress(KeyEvent.VK_PAGE_DOWN);
+		driver.findElement(By.xpath("//app-form-item[3]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div/div/div/button[2]")).click();
+		
+		//Terms and conditions
+		
+		driver.findElement(By.cssSelector("button[class='btn btn-primary'][role='checkbox']")).click();
+		driver.findElements(By.cssSelector(".btn.btn-primary")).get(1).click();
+	    String actual=driver.findElement(By.cssSelector("div[class='alert alert-success alert-dismissible ng-star-inserted")).getText();
+		Assert.assertTrue(actual.endsWith("was succesfully submitted"));
+	    System.out.println("True");
+	    driver.close();
+		
+        
+		
+		}
+		 
+	}
+
+

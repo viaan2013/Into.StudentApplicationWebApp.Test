@@ -1,0 +1,119 @@
+package com.stepdefinition;
+
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
+import org.junit.Assert;
+
+public class UKAboutYouStepDef {
+
+	public static WebDriver driver;
+		
+		@Given("^I am in AboutYou session of UKapplicationform$")
+		public void I_am_in_AboutYou_session_of_UKapplicationform() throws Throwable {
+			
+			System.setProperty("webdriver.chrome.driver",
+					"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
+			driver = new ChromeDriver();
+			driver.get("http://ddstudentapplicationwebapp-test-01.azurewebsites.net/application/course/aCI3A000000CadzWAC");
+			driver.findElements(By.className("section-count")).get(1).click();
+			driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
+		
+		
+			}
+
+		@When("^I enter \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+		public void I_enter_(String Email, String Firstname, String Lastname, String PhoneNumber) throws Throwable {
+			driver.findElement(By.id("email")).sendKeys(Email);
+			driver.findElement(By.id("firstName")).sendKeys(Firstname);
+			driver.findElement(By.id("lastName")).sendKeys(Lastname);
+			driver.findElement(By.id("phone")).sendKeys(PhoneNumber);
+		}
+
+		@When("^I select \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+		public void I_select_(String date, String Month, String Year) throws Throwable {
+			driver.findElement(By.id("dateOfBirth_day")).sendKeys(date);
+			Select month = new Select(driver.findElement(By.id("dateOfBirth_month")));
+			month.selectByVisibleText(Month);
+			driver.findElement(By.id("dateOfBirth_year")).sendKeys(Year);
+		   
+		}
+
+		@When("^I select\"([^\"]*)\"$")
+		public void I_select(String Countryofnationality) throws Throwable {
+		   
+            Select nationality = new Select(driver.findElement(By.id("nationality")));
+			nationality.selectByVisibleText(Countryofnationality);
+			/*List<WebElement> nationalitycount=nationality.getOptions();
+		    System.out.println(nationalitycount.size());
+		    String Nationalitylist = driver.findElement(By.id("nationality")).getText();
+		    System.out.println("Nationalitylist" + Nationalitylist );
+		   */
+		}
+
+		@When("^I select \"([^\"]*)\"gender$")
+		public void I_select_gender(String Gender) throws Throwable {
+		   
+            driver.findElement(By.id(Gender)).click();
+		}
+
+		@When("^I select \"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\",\"([^\"]*)\"$")
+		public void I_select_(String line1, String line2, String line3, String town, String city, String state, String zipcode) throws Throwable {
+
+			
+		    driver.findElement(By.id("address.addressLine1")).sendKeys(line1);
+			driver.findElement(By.id("address.addressLine2")).sendKeys(line2);
+			driver.findElement(By.id("address.addressLine3")).sendKeys(line3);
+			driver.findElement(By.id("address.towncity")).sendKeys(town);
+			driver.findElement(By.id("address.stateregion")).sendKeys(state);
+			driver.findElement(By.id("address.zipcode")).sendKeys(zipcode);
+			
+		}
+
+		@When("^I select \"([^\"]*)\" from dropdown$")
+		public void I_select_from_dropdown(String country) throws Throwable {
+
+			
+			Select countryfield = new Select(driver.findElement(By.id("address.country")));
+			countryfield.selectByVisibleText(country);
+			/*String countrynames = driver.findElement(By.id("address.country")).getText();
+			System.out.println("countrynames list" + countrynames);
+			List<WebElement> countrycount = countryfield.getOptions();
+			System.out.println(countrycount.size());*/
+			
+		  
+		}
+
+		@When("^I click on next button$")
+		public void I_click_on_next_button() throws Throwable {
+
+			driver.findElements(By.cssSelector(".btn.btn-primary")).get(1).click();
+		   
+		}
+		@When("I click on apply button$")
+		public void I_click_on_apply_button()  throws Throwable {
+			Robot robot = new Robot();
+			robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+		driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+			
+		}
+
+		@When("^I should see additional information session of application form$")
+		public void I_should_see_additional_information_session_of_application_form() throws Throwable {
+			
+		String expectedtext="About you";
+			String actual= driver.findElement(By.xpath("//a[@id='tabforcandidate']/div[2]")).getText();
+			System.out.println(actual);
+			Assert.assertTrue(actual.contains(expectedtext));
+			System.out.println("PASSED");
+		driver.close();
+}
+}
+
+

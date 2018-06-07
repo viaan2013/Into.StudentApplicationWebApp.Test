@@ -1,0 +1,19 @@
+
+package com.Runner;
+
+import org.junit.runner.RunWith;
+
+import cucumber.api.junit.Cucumber;
+
+
+@RunWith(Cucumber.class)
+@Cucumber.Options(
+		features=   "./src/com/feature",
+		glue="com.stepdefinition",
+		tags= {"@CourseDetails"}
+		
+		
+		)
+
+public class CucumberRunner{
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;UK-Applicationform/src/com/feature/EndToEnd.feature&apos; to &apos;UK-EndToEnd.feature&apos;" description="Rename resource &apos;EndToEnd.feature&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/com/feature/EndToEnd.feature" name="UK-EndToEnd.feature" stamp="1527867027039" updateReferences="true"/>
+</session>

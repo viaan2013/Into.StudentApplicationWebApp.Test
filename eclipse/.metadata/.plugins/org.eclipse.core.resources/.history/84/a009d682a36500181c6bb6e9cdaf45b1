@@ -1,0 +1,18 @@
+Feature: UK-English course
+@English
+Scenario Outline: Course selector-English
+
+Given I am in course selector page
+And I select "<Country>"
+And I click on English language course link
+And I select English "<type>"
+And I select university option
+When I click on show courses button
+Then I should see "<search results>" page
+
+Examples:
+|Country|type|search results|
+|gb|Pre-sessional English|
+|us|Academic English|
+
+

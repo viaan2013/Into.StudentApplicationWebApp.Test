@@ -1,0 +1,35 @@
+package com.stepdefinition;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class ViewCourseDetailsStepDef {
+	
+	public static WebDriver driver;
+	
+	@When("^I select \"([^\"]*)\" of study$")
+	public void I_select_of_study(String level) throws Throwable {
+		
+		driver.findElement(By.id(level)).click();
+	    
+	}
+
+	@Then("^I select and click on one of the courses view course details link$")
+	public void I_select_and_click_on_one_of_the_courses_view_course_details_link() throws Throwable {
+		
+	   driver.findElement(By.linkText("View course details")).click();
+	}
+
+	@Then("^I should see course details page$")
+	public void I_should_see_course_details_page() throws Throwable {
+	Assert.assertEquals("http://www.intostudy.com/en-gb/universities/into-london/courses/international-foundation-in-social-sciences-and-media?_ga=2.242031681.231491396.1528186416-295617896.1528186416",driver.getCurrentUrl());
+	   
+	}
+
+
+
+}

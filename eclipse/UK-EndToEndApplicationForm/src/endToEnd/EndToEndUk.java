@@ -1,0 +1,116 @@
+package endToEnd;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.util.concurrent.TimeUnit;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class EndToEndUk {
+	public static WebDriver driver;
+
+	public static void main(String[] args) throws AWTException, InterruptedException {
+		System.setProperty("webdriver.chrome.driver",
+				"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
+		driver = new ChromeDriver();
+		
+		//course selector 
+		
+		driver.get("https://apply-test.intostudy.com");
+		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.findElement(By.cssSelector("img[class='flag'][src='../assets/flags/flag-gb.svg']")).click();
+		driver.findElement(By.name("searchTerm")).click();
+		driver.findElement(By.name("searchTerm")).sendKeys("social");
+		driver.findElement(By.name("searchTerm")).sendKeys(Keys.ENTER);
+		driver.findElement(By.id("Undergraduate")).click();
+		driver.findElement(By.cssSelector("label[for= 'Yes']")).click();
+		driver.findElements(By.className("uni-list-item")).get(0).click();
+		driver.findElement(By.cssSelector(".btn.btn-primary.search-button")).click();
+		String actual = driver.findElement(By.cssSelector(".col-xl-8.col-lg-8.col-md-9.pt-3.pb-3.course-name"))
+				.getText();
+		System.out.println(actual);
+		String expected = "View course details";
+		Assert.assertTrue(actual.contains(expected));
+		driver.findElements(By.cssSelector(".btn.btn-primary.pull-right")).get(0).click();
+		
+		//your program session
+		
+		WebElement date= driver.findElement(By.id("scheduledCourse.startDate"));
+		Select startdate=new Select(date);
+		startdate.selectByValue("01t3A000007GZtVQAW");
+		JavascriptExecutor jse = ((JavascriptExecutor) driver);
+		jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		WebElement university= driver.findElement(By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[2]/div[2]/select"));
+		Select progressionuniversity=new Select(university);
+	    progressionuniversity.selectByValue("City, University of London");
+	    WebElement degree= driver.findElement(By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[3]/div[2]/select"));
+		Select progressiondegree=new Select(degree);
+	    progressiondegree.selectByValue("aCE3A000000TNeAWAW");
+	    driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+	    
+	    //About you session
+	    
+	    driver.findElement(By.id("email")).sendKeys("deleteme@delete.com");
+		driver.findElement(By.id("firstName")).sendKeys("Test@UK");
+		driver.findElement(By.id("lastName")).sendKeys("delete");
+		Select phone = new Select(driver.findElement(By.id("phone")));
+		phone.selectByVisibleText("Antigua and Barbuda +1-268");
+		driver.findElements(By.id("phone")).get(1).sendKeys("453246334654");
+		driver.findElement(By.id("dateOfBirth_day")).sendKeys("20");
+		Select month = new Select(driver.findElement(By.id("dateOfBirth_month")));
+		month.selectByVisibleText("January");
+		driver.findElement(By.id("dateOfBirth_year")).sendKeys("2000");
+		Select nationality = new Select(driver.findElement(By.id("nationality")));
+		nationality.selectByVisibleText("India");
+		driver.findElement(By.id("gender_f")).click();
+
+		driver.findElement(By.id("address.addressLine1")).sendKeys("Brighton");
+		driver.findElement(By.id("address.addressLine2")).sendKeys("surrey");
+		driver.findElement(By.id("address.addressLine3")).sendKeys("line3");
+		driver.findElement(By.id("address.towncity")).sendKeys("Brighton");
+		driver.findElement(By.id("address.stateregion")).sendKeys("east croydon");
+		driver.findElement(By.id("address.zipcode")).sendKeys("rh6 8Gh");
+		Select countryfield = new Select(driver.findElement(By.id("address.country")));
+		countryfield.selectByVisibleText("India");
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+		driver.findElement(By.cssSelector("div.col.text-right > span.ng-star-inserted > button.btn.btn-primary"))
+				.click();
+		
+		//Additional information session
+		
+		driver.findElement(By.xpath("//div/app-form-item/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.id("paymentMethod_familyfunded")).click();
+		driver.findElement(By.xpath("//div/app-form-item[3]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.id("educationCounsellor")).click();
+		driver.findElement(By.id("educationCounsellor")).sendKeys("education counsellor");
+		driver.findElement(By.xpath("//div/app-form-item[4]/app-section/fieldset/app-form-item-container/div/app-form-item/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.id("medicalConditionOrDisability")).click();
+		driver.findElement(By.id("medicalConditionOrDisability")).sendKeys("medical condition");
+		driver.findElement(By.xpath("//div/app-form-item[4]/app-section/fieldset/app-form-item-container/div/app-form-item[3]/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.xpath("//div/app-form-item[4]/app-section/fieldset/app-form-item-container/div/app-form-item[4]/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.xpath("//div/app-form-item[4]/app-section/fieldset/app-form-item-container/div/app-form-item[5]/app-boolean-question/div/div[2]/div/div/button")).click();
+		driver.findElement(By.cssSelector("div.col.text-right > span.ng-star-inserted > button.btn.btn-primary")).click();
+		
+		//Terms and Conditions
+		
+		driver.findElement(By.cssSelector("button.btn.btn-outline-secondary")).click();
+		driver.findElement(By.cssSelector("div.col.text-right > span.ng-star-inserted > button.btn.btn-primary")).click();
+		Thread.sleep(4000);
+	    //post submission page
+		String Expectedurl="http://www.intostudy.com/apply/thank-you-for-applying-uk";
+		String Actualurl=driver.getCurrentUrl();
+		Assert.assertEquals(Expectedurl,Actualurl);
+		driver.close();
+
+		}
+
+}

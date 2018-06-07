@@ -1,0 +1,59 @@
+package com.stepdefinition;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class UKEnglishStepDef {
+	public static WebDriver driver;
+	
+	@Given("^I am in course selector page$")
+	public void I_am_in_course_selector_page() throws Throwable {
+		System.setProperty("webdriver.chrome.driver",
+				"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("https://apply-test.intostudy.com");
+		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+	   
+	}
+
+	@Given("^I select \"([^\"]*)\"$")
+	public void I_select(String arg1) throws Throwable {
+		
+	   
+	}
+
+	@Given("^I click on English language course link$")
+	public void I_click_on_English_language_course_link() throws Throwable {
+	   
+	}
+
+	@Given("^I select English \"([^\"]*)\"$")
+	public void I_select_English(String arg1) throws Throwable {
+	  
+	}
+
+	@Given("^I select university option$")
+	public void I_select_university_option() throws Throwable {
+	  
+	}
+
+	@When("^I click on show courses button$")
+	public void I_click_on_show_courses_button() throws Throwable {
+	    
+	}
+
+	@Then("^I should see \"([^\"]*)\" page$")
+	public void I_should_see_page(String arg1) throws Throwable {
+	   
+	}
+
+
+
+}

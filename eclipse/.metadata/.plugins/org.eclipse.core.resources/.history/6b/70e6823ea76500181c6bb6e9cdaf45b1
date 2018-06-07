@@ -1,0 +1,18 @@
+Feature: UK-English course
+@English
+Scenario Outline: Course selector-English
+
+Given I am in course selector page
+And I select "<Country>"
+And I click on English language course link
+And I select English "<type>"
+And I select university option
+When I click on show courses button
+Then I should see "<searchresults>" page
+
+Examples:
+|Country|type|searchresults|
+|gb|span.radiobtn|col-xl-10 col-lg-10 col-md-10 col-9 pl-2|
+|us|span.radiobtn|col-xl-10 col-lg-10 col-md-10 col-9 pl-2|
+
+

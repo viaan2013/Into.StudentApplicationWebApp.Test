@@ -1,0 +1,58 @@
+package endToEnd;
+
+import java.util.concurrent.TimeUnit;
+
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class EndToEnd {
+	public static WebDriver driver;
+
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver",
+				"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
+		driver = new ChromeDriver();
+		driver.get("https://apply-test.intostudy.com");
+		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.findElement(By.cssSelector("img[class='flag'][src='../assets/flags/flag-gb.svg']")).click();
+		driver.findElement(By.name("searchTerm")).click();
+		driver.findElement(By.name("searchTerm")).sendKeys("social");
+		driver.findElement(By.name("searchTerm")).sendKeys(Keys.ENTER);
+		driver.findElement(By.id("Undergraduate")).click();
+		driver.findElement(By.cssSelector("label[for= 'Yes']")).click();
+		driver.findElements(By.className("uni-list-item")).get(0).click();
+		driver.findElement(By.cssSelector(".btn.btn-primary.search-button")).click();
+		String actual = driver.findElement(By.cssSelector(".col-xl-8.col-lg-8.col-md-9.pt-3.pb-3.course-name"))
+				.getText();
+		System.out.println(actual);
+		String expected = "View course details";
+		Assert.assertTrue(actual.contains(expected));
+		driver.findElements(By.cssSelector(".btn.btn-primary.pull-right")).get(0).click();
+		WebElement date= driver.findElement(By.id("scheduledCourse.startDate"));
+		Select startdate=new Select(date);
+		startdate.selectByValue("01t3A000007GZtVQAW");
+		JavascriptExecutor jse = ((JavascriptExecutor) driver);
+		jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		WebElement university= driver.findElement(By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[2]/div[2]/select"));
+		Select progressionuniversity=new Select(university);
+	    progressionuniversity.selectByValue("City, University of London");
+	    WebElement degree= driver.findElement(By.xpath("//div/app-form-item[3]/app-progression-selector-question/div/div/div/div[3]/div[2]/select"));
+		Select progressiondegree=new Select(degree);
+	    progressiondegree.selectByValue("aCE3A000000TNeAWAW");
+	    driver.findElement(By.cssSelector("button.btn.btn-primary")).click();
+	    
+		
+		
+		
+		
+
+	}
+
+}

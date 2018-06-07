@@ -1,0 +1,35 @@
+Feature: UK-EndToEnd Application Form
+
+Scenario Outline: End to End
+Given I am in CourseSelectorHomepage
+When I click and select country
+And I enter subject in "<subject>" area
+And I click on Add subject button
+And I select "<level>"of study
+And I should see Universities information which is optional
+And I select "<University>" from list
+And I click on Show courses button
+When I am in AboutYou session of UKapplicationform
+And I enter "<Email>","<Firstname>","<Lastname>","<PhoneNumber>"
+And I select "<date>","<Month>","<Year>"
+And I select "<Gender>"gender
+And I select"<Countryofnationality>"
+And I select "<line1>","<line2>","<line3>","<town>","<city>","<state>","<zipcode>"
+And I select "<country>" from dropdown
+And I click on next button
+And I should see Additional information session
+And I select have you ever studied in the UK before?
+And I select How will you pay for your INTO program?
+And I select Is an education counsellor helping you with your application?
+And I select Additional information questions?
+And I click on Next button
+And I click on I accept terms and conditions 
+And I click on next button
+Then I click on submit button
+Then I should see Post submission page 
+
+Examples:
+|subject|level|University|Email|Firstname|Lastname|PhoneNumber|date|Month|Year|Gender|Countryofnationality|line1|line2|line3|town|city|state|zipcode|country|
+|Business|Undergraduate|Deleteme@delete.com|Test1|Delete1|65775766546|04|January|1900||India|20 beechside|Crawley|surrey|abcd|London|UK|RH1 5RC|UK|
+|Science|Postgraduate|deleteme2@delete.com|Test2|Delete2|656345632453646|25|June|2017||Egypt|30 brighton|Brighton|sussex|xyz|London|UK||21HY 6YH|UK|
+|Maths|Postgraduate|deleteme3@delete.com|Test3|Delete3|08349737446646|28|August|2008|Australia|123 sussex|Hove|London|pqrs|London|UK|8GH 6TY|UK|
