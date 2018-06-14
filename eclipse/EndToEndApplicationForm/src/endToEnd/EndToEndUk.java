@@ -25,13 +25,13 @@ public class EndToEndUk {
 				"C://Users//Sruthi.Kundoor//Desktop//Automation updated//chromedriver_win32//chromedriver.exe");
 		driver = new ChromeDriver();
 		
-		//URL to launch the webpage
+		//URL to launch the Webpage
 		
-		driver.get("https://apply-test.intostudy.com");
+		driver.get("https://apply.intostudy.com");
 		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		//Assertion for course selector page
-		Assert.assertEquals("https://apply-test.intostudy.com/course-selector", driver.getCurrentUrl());
+		Assert.assertEquals("https://apply.intostudy.com/course-selector", driver.getCurrentUrl());
 		
 		//Selecting country
 		driver.findElement(By.cssSelector("img[class='flag'][src='../assets/flags/flag-gb.svg']")).click();
@@ -50,17 +50,14 @@ public class EndToEndUk {
 		driver.findElements(By.className("uni-list-item")).get(0).click();
 		//click on show courses button
 		driver.findElement(By.cssSelector(".btn.btn-primary.search-button")).click();
-		//Assertion for search results
-		String actual = driver.findElement(By.cssSelector(".col-xl-8.col-lg-8.col-md-9.pt-3.pb-3.course-name"))
-				.getText();
-		System.out.println(actual);
-		String expected = "View course details";
-		Assert.assertTrue(actual.contains(expected));
-		//click on apply button
-		driver.findElements(By.cssSelector(".btn.btn-primary.pull-right")).get(0).click();
+		Robot robot = new Robot();
+		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
 		
+		//click on apply button
+	
+		driver.findElement(By.xpath("//div[@id='course-selector-container']/div/div[2]/app-search/div/app-search-results/div/div/div[2]/div[2]/div/div/div[3]/button")).click();
 		//Assertion for your program session
-		Assert.assertTrue(driver.getCurrentUrl().contains("https://apply-test.intostudy.com/application/course"));
+		Assert.assertTrue(driver.getCurrentUrl().contains("https://apply.intostudy.com/application/course"));
 		
 		//your program session
 		
@@ -86,11 +83,11 @@ public class EndToEndUk {
 	    
 	    //About you session
 	    //Email address
-	    driver.findElement(By.id("email")).sendKeys("deleteme@delete.com");
+	    driver.findElement(By.id("email")).sendKeys("sruthitest@k.com");
 	    //First name
-		driver.findElement(By.id("firstName")).sendKeys("Test@UK");
+		driver.findElement(By.id("firstName")).sendKeys("sruthi@11.06.18");
 		//Last name
-		driver.findElement(By.id("lastName")).sendKeys("delete");
+		driver.findElement(By.id("lastName")).sendKeys("Test@regression");
 		//Phone number
 		Select phone = new Select(driver.findElement(By.id("phone")));
 		phone.selectByVisibleText("Antigua and Barbuda +1-268");
@@ -115,14 +112,14 @@ public class EndToEndUk {
 		//Town/city
 		driver.findElement(By.id("address.towncity")).sendKeys("Brighton");
 		//state/region
-		driver.findElement(By.id("address.stateregion")).sendKeys("east croydon");
+		driver.findElement(By.id("address.stateregion")).sendKeys("eastcroydon");
 		//Zipcode
-		driver.findElement(By.id("address.zipcode")).sendKeys("rh6 8Gh");
+		driver.findElement(By.id("address.zipcode")).sendKeys("rh68Gh");
 		//Country
 		Select countryfield = new Select(driver.findElement(By.id("address.country")));
 		countryfield.selectByVisibleText("India");
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+		Robot robo = new Robot();
+		robo.keyPress(KeyEvent.VK_PAGE_DOWN);
 		//Next button
 		driver.findElement(By.cssSelector("div.col.text-right > span.ng-star-inserted > button.btn.btn-primary"))
 				.click();
@@ -157,6 +154,7 @@ public class EndToEndUk {
 	    //post submission page
 		String Expectedurl="http://www.intostudy.com/apply/thank-you-for-applying-uk";
 		String Actualurl=driver.getCurrentUrl();
+		System.out.println(Actualurl);
 		Assert.assertEquals(Expectedurl,Actualurl);
 		driver.close();
 

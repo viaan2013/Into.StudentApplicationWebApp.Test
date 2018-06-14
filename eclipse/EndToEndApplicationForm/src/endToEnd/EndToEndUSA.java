@@ -26,12 +26,12 @@ public class EndToEndUSA {
 		
 		//URL to launch the webpage
 		
-		driver.get("https://apply-test.intostudy.com");
+		driver.get("https://apply.intostudy.com");
 		driver.manage().timeouts().implicitlyWait(6000, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		
 		//Assertion for course selector page
-		Assert.assertEquals("https://apply-test.intostudy.com/course-selector", driver.getCurrentUrl());
+		Assert.assertEquals("https://apply.intostudy.com/course-selector", driver.getCurrentUrl());
 		
 		//select country
 		
@@ -58,20 +58,15 @@ public class EndToEndUSA {
 		
 		driver.findElement(By.cssSelector(".btn.btn-primary.search-button")).click();
 		
-		//Assertion for search results
-		
-		String actual = driver.findElement(By.cssSelector(".col-xl-8.col-lg-8.col-md-9.pt-3.pb-3.course-name"))
-				.getText();
-		System.out.println(actual);
-		String expected = "View course details";
-		Assert.assertTrue(actual.contains(expected));
+		Robot robo = new Robot();
+		robo.keyPress(KeyEvent.VK_PAGE_DOWN);
 		
 		//click on apply button
-		driver.findElements(By.cssSelector(".btn.btn-primary.pull-right")).get(0).click();
-		
+	
+		driver.findElement(By.xpath("//div[@id='course-selector-container']/div/div[2]/app-search/div/app-search-results/div/div/div[2]/div[2]/div/div/div[3]/button")).click();
 		//Assertion for your program session
 		
-		Assert.assertTrue(driver.getCurrentUrl().contains("https://apply-test.intostudy.com/application/course"));
+		Assert.assertTrue(driver.getCurrentUrl().contains("https://apply.intostudy.com/application/course"));
 		
 		//your program session
 		
@@ -105,9 +100,9 @@ public class EndToEndUSA {
 			//Email address    
 		driver.findElement(By.id("email")).sendKeys("sru@gmail.com");
 		//Firstname
-		driver.findElement(By.id("firstName")).sendKeys("sruthi");
+		driver.findElement(By.id("firstName")).sendKeys("sruthi@11.06");
 		//Last name
-		driver.findElement(By.id("lastName")).sendKeys("automation");
+		driver.findElement(By.id("lastName")).sendKeys("regression");
 		//phone number
 		Select phone = new Select(driver.findElement(By.id("phone")));
 		phone.selectByVisibleText("Antigua and Barbuda +1-268");
@@ -256,11 +251,10 @@ public class EndToEndUSA {
 	    
 	    String Expectedurl="http://www.intostudy.com/apply/thank-you-for-applying-us";
 		String Actualurl=driver.getCurrentUrl();
-		System.out.println(driver.getCurrentUrl());
+		System.out.println(Actualurl);
 		Assert.assertEquals(Expectedurl,Actualurl);
 		driver.close();
-	    
-	}
+}
 }
 
 
